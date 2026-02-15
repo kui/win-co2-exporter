@@ -1,0 +1,26 @@
+[project]
+name = "win-co2-exporter"
+version = "0.1.0"
+description = "A background service to read CO2-mini sensor values and export them for Prometheus"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "hidapi>=0.15.0",
+    "prometheus-client>=0.24.1",
+]
+
+[project.urls]
+Repository = "https://github.com/kui/win-co2-exporter"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.1",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["F", "E", "W", "I", "B", "UP", "C4", "SIM"]
+ignore = []
