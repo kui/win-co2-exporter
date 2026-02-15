@@ -89,3 +89,7 @@ If the service fails to start, refer to the following logs for details:
 - `C:\tools\win-co2-exporter\stderr.log`
 
 Common errors such as "Failed to ensure Event Log source" indicate that the command was not executed with Administrator privileges.
+
+## See Also
+
+- [Graphing Various Resources as Time-Series Data on Windows](https://gist.github.com/kui/52bbb6acba40d51421cce811815aa6d2) (written in Japanese)
