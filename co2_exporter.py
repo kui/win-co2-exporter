@@ -18,6 +18,7 @@ MAGIC_KEY = [0x86, 0x41, 0xC9, 0xA8, 0x7F, 0x41, 0x3C, 0xCA]
 EXPORTER_PORT = int(os.getenv("CO2_EXPORTER_PORT", "4446"))
 INTERVAL_SECONDS = float(os.getenv("CO2_EXPORTER_INTERVAL", "2"))
 RETRY_DELAY_SECONDS = float(os.getenv("CO2_EXPORTER_RETRY_DELAY", "5"))
+LOG_LEVEL = os.getenv("CO2_EXPORTER_LOG_LEVEL", "INFO").upper()
 
 # Data validation constants
 MIN_DATA_LENGTH = 5
@@ -61,11 +62,11 @@ def process_data(data: list[int]) -> None:
 
     if op == OP_CO2:
         CO2_LEVEL.set(val)
-        logging.info(f"CO2: {val} ppm")
+        logging.debug(f"CO2: {val} ppm")
     elif op == OP_TEMPERATURE:
         temp_c = val / 16.0 - 273.15
         TEMP_LEVEL.set(temp_c)
-        logging.info(f"Temp: {temp_c:.2f} °C")
+        logging.debug(f"Temp: {temp_c:.2f} °C")
 
 
 def monitor() -> None:
@@ -90,14 +91,16 @@ def monitor() -> None:
 
 def main() -> None:
     """Main entry point."""
+    log_level = getattr(logging, LOG_LEVEL, logging.INFO)
     logging.basicConfig(
-        level=logging.INFO,
+        level=log_level,
         format="%(asctime)s %(levelname)s %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
     start_http_server(EXPORTER_PORT)
     logging.info(f"Exporter listening on port {EXPORTER_PORT}")
     logging.info(f"Polling interval: {INTERVAL_SECONDS}s")
+    logging.info(f"Log level: {logging.getLevelName(log_level)}")
     monitor()
 
 

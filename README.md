@@ -51,6 +51,7 @@ The exporter can be configured via environment variables:
 - `CO2_EXPORTER_PORT`: HTTP server port (default: 4446)
 - `CO2_EXPORTER_INTERVAL`: Polling interval in seconds (default: 2)
 - `CO2_EXPORTER_RETRY_DELAY`: Retry delay after connection failure in seconds (default: 5)
+- `CO2_EXPORTER_LOG_LEVEL`: Log level - DEBUG, INFO, WARNING, ERROR, CRITICAL (default: INFO)
 
 ## Service Management
 
